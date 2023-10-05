@@ -4,19 +4,24 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapCalculator {
-  final MapCamera mapState;
+  final MapCamera mapCamera;
 
-  MapCalculator(this.mapState);
+  MapCalculator(this.mapCamera);
 
   Point<num> getPixelFromPoint(LatLng point) {
-    final pos = mapState.project(point);
-    return pos * mapState.getZoomScale(mapState.zoom, mapState.zoom) -
-        mapState.pixelOrigin.toDoublePoint();
+    final pos = mapCamera.project(point);
+    return pos * mapCamera.getZoomScale(mapCamera.zoom, mapCamera.zoom) -
+        mapCamera.pixelOrigin.toDoublePoint();
+  }
+
+  Point<double> getPixelFromPointV2(LatLng point) {
+    final pxPoint = mapCamera.project(point);
+    return pxPoint.subtract(mapCamera.pixelOrigin);
   }
 
   Point project(LatLng latLng, {double? zoom}) =>
-      mapState.project(latLng, zoom);
+      mapCamera.project(latLng, zoom);
 
   LatLng unproject(Point point, {double? zoom}) =>
-      mapState.unproject(point, zoom);
+      mapCamera.unproject(point, zoom);
 }

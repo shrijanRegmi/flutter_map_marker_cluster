@@ -447,7 +447,7 @@ class _MarkerClusterLayerState extends State<MarkerClusterLayer>
     );
     final points = _generatePointSpiderfy(
       cluster.markers.length,
-      _mapCalculator.getPixelFromPoint(cluster.bounds.center),
+      _mapCalculator.getPixelFromPointV2(cluster.bounds.center),
     );
 
     for (var i = 0; i < cluster.markers.length; i++) {
